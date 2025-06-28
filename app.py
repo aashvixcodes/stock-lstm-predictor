@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Stock Forecast", layout="centered")
-st.title("Stock Price Predictor (No Deep Learning)")
+st.title("FutureStock: 30-Day Price Forecast")
 
 stock = st.text_input("Enter Stock Symbol (e.g., AAPL, TSLA, RELIANCE.NS)", "AAPL")
 
