@@ -3,7 +3,8 @@ yfinance
 numpy
 pandas
 scikit-learn
-keras==2.15.0
 matplotlib
+torch
+
 
 
