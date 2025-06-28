@@ -66,11 +66,6 @@ Each day’s prediction feeds into the next input to forecast multiple days (aut
 
 Here's a breakdown of the technologies and tools used to build and deploy this project:
 
-### 🧠 Machine Learning / Deep Learning
-- **TensorFlow 2.12.0** – for building and training the LSTM model
-- **Keras (via TensorFlow)** – high-level API to define the neural network
-- **scikit-learn** – for data normalization`
-
 ### 📊 Data Handling & Processing
 - **NumPy** – for array manipulation and numerical computations
 - **Pandas** – for working with stock price data in tabular format
@@ -97,7 +92,7 @@ Here's a breakdown of the technologies and tools used to build and deploy this p
 |--------------------|----------------------------------------|
 | Data Fetching      | `yfinance`                             |
 | Data Processing    | `pandas`, `numpy`, `MinMaxScaler`      |
-| ML Model           | `TensorFlow`, `Keras`, `LSTM`          |
+| ML Model           | `sklearn  `                            |
 | Visualization      | `matplotlib`, `streamlit.pyplot`       |
 | Frontend Interface | `Streamlit`                            |
 | Deployment         | `GitHub`, `Streamlit Cloud`            |
