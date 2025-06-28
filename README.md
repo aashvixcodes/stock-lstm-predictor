@@ -1,7 +1,6 @@
 # 📈 Stock Price Predictor with LSTM
 
 This is a Streamlit-based web application that predicts the **next 30 days of stock prices** using historical data and a Long Short-Term Memory (LSTM) model. The app uses real-time data fetched from Yahoo Finance and runs an LSTM neural network under the hood.
-# 📈 Stock Price Predictor with LSTM
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-red?style=flat-square&logo=streamlit)
@@ -44,7 +43,6 @@ In stock market prediction, understanding patterns, seasonality, and trends is c
 1. **Vanishing gradient problem** – where model forgets earlier data
 2. **Short memory** – inability to remember long-term patterns
 
-> 📌 In this project, LSTM is used to learn from past 60 days and recursively forecast next 30 days.
 
 ---
 
@@ -64,15 +62,46 @@ Each day’s prediction feeds into the next input to forecast multiple days (aut
 
 ---
 
-## 🧪 Tech Stack
+## 🛠 Tech Stack Used
 
-- Python 3.10
-- TensorFlow / Keras
-- Streamlit
-- yFinance
-- NumPy & Pandas
-- Matplotlib
-- scikit-learn
+Here's a breakdown of the technologies and tools used to build and deploy this project:
+
+### 🧠 Machine Learning / Deep Learning
+- **TensorFlow 2.12.0** – for building and training the LSTM model
+- **Keras (via TensorFlow)** – high-level API to define the neural network
+- **scikit-learn** – for data normalization`
+
+### 📊 Data Handling & Processing
+- **NumPy** – for array manipulation and numerical computations
+- **Pandas** – for working with stock price data in tabular format
+- **yfinance** – to fetch historical stock data from Yahoo Finance
+
+### 📈 Visualization
+- **Matplotlib** – to visualize the predicted stock prices
+
+### 🌐 Web App Interface
+- **Streamlit** – to create and host the interactive web app
+
+### ⚙️ Deployment & DevOps
+- **Git & GitHub** – for version control and cloud hosting the repository
+- **Streamlit Cloud** – to deploy the Streamlit app live from GitHub
+
+### 💻 Environment
+- **Python 3.10** – compatible with TensorFlow and Streamlit Cloud
+
+---
+
+### ✅ Summary Table
+
+| Layer               | Technology / Library                  |
+|--------------------|----------------------------------------|
+| Data Fetching      | `yfinance`                             |
+| Data Processing    | `pandas`, `numpy`, `MinMaxScaler`      |
+| ML Model           | `TensorFlow`, `Keras`, `LSTM`          |
+| Visualization      | `matplotlib`, `streamlit.pyplot`       |
+| Frontend Interface | `Streamlit`                            |
+| Deployment         | `GitHub`, `Streamlit Cloud`            |
+| Python Version     | `Python 3.10`                          |
 
 ---
 
