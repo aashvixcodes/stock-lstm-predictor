@@ -1,74 +1,58 @@
-import streamlit as st
-import numpy as np
-import pandas as pd
 import yfinance as yf
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import Sequential, load_model
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
-import os
 
-# Set page title
-st.set_page_config(page_title="Stock Price Predictor")
+# Choose a stock
+stock = input("Enter Stock Symbol (e.g., AAPL, TSLA, RELIANCE.NS): ").upper()
 
-# Cache data fetching to avoid repeated downloads
-@st.cache_data
-def fetch_data(ticker, period="1y"):
-    df = yf.download(ticker, period=period)
-    return df
+# Download last 5 years of data
+df = yf.download(stock, period='5y')
+if df.empty:
+    print("Invalid stock symbol or no data available.")
+    exit()
 
-# Preprocess data for LSTM
-def prepare_data(data, look_back=60):
-    data = data[['Close']].values
-    X, y = [], []
-    for i in range(look_back, len(data)):
-        X.append(data[i-look_back:i, 0])
-        y.append(data[i, 0])
-    X, y = np.array(X), np.array(y)
-    X = np.reshape(X, (X.shape[0], X.shape[1], 1))
-    return X, y
+data = df[['Close']].values
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaled_data = scaler.fit_transform(data)
 
-# Streamlit UI
-st.title("Stock Price Predictor with LSTM")
+X, y = [], []
+for i in range(60, len(scaled_data) - 30):
+    X.append(scaled_data[i-60:i, 0])
+    y.append(scaled_data[i:i+30, 0])  # Predict next 30
 
-ticker = st.text_input("Enter Stock Ticker (e.g., AAPL):", "AAPL")
-period = st.selectbox("Select Data Period:", ["1y", "2y", "5y"], index=0)
-look_back = st.slider("Look Back Window (days):", 30, 90, 60)
+X, y = np.array(X), np.array(y)
+X = X.reshape((X.shape[0], X.shape[1], 1))
 
-if st.button("Fetch Data and Train Model"):
-    with st.spinner("Fetching data and training model..."):
-        df = fetch_data(ticker, period)
-        if df.empty:
-            st.error("Could not fetch data. Please try a different ticker or check your internet connection.")
-        else:
-            st.line_chart(df['Close'])
-            
-            # Prepare data
-            X, y = prepare_data(df, look_back)
-            
-            # Split into train and test (for demo, not production!)
-            train_size = int(len(X) * 0.8)
-            X_train, X_test = X[:train_size], X[train_size:]
-            y_train, y_test = y[:train_size], y[train_size:]
-            
-            # Build model (simplified for demo)
-            model = Sequential([
-                LSTM(30, return_sequences=True, input_shape=(look_back, 1)),
-                LSTM(30),
-                Dense(1)
-            ])
-            model.compile(optimizer='adam', loss='mean_squared_error')
-            
-            # Train model (for demo, use fewer epochs)
-            model.fit(X_train, y_train, epochs=2, batch_size=32, verbose=0)
-            
-            # Predict
-            y_pred = model.predict(X_test)
-            
-            # Plot
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.plot(y_test, label='Actual')
-            ax.plot(y_pred, label='Predicted')
-            ax.legend()
-            st.pyplot(fig)
-            
-            st.success("Model trained and predictions plotted!")
+# Build LSTM model
+model = Sequential([
+    LSTM(50, return_sequences=True, input_shape=(X.shape[1], 1)),
+    LSTM(50),
+    Dense(30)
+])
+model.compile(optimizer='adam', loss='mean_squared_error')
+model.fit(X, y, epochs=10, batch_size=64, verbose=1)
+
+# Predict next 30 days
+last_60_days = scaled_data[-60:]
+input_seq = last_60_days.reshape((1, 60, 1))
+predicted_scaled = model.predict(input_seq)
+predicted = scaler.inverse_transform(predicted_scaled.reshape(-1, 1))
+
+print(f"\nPredicted next 30-day prices for {stock}:")
+for i, price in enumerate(predicted):
+    print(f"Day {i+1}: ₹{price[0]:.2f}")
+
+# Plot results
+plt.figure(figsize=(10, 4))
+plt.plot(range(1, 31), predicted, marker='o', linestyle='--')
+plt.title(f"Predicted 30-Day Prices for {stock}")
+plt.xlabel("Future Day")
+plt.ylabel("Predicted Price")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
