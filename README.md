@@ -18,7 +18,7 @@ This is a Streamlit-based web application that predicts the **next 30 days of st
 
 ### 🛠 Steps
 
-```bash
+
 # 1. Clone the repository
 git clone https://github.com/aashvixcodes/stock-lstm-predictor.git
 cd stock-lstm-predictor
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 streamlit run app.py
 
 
-## 🧠 Features
+# 🧠 Features
 
 - Input any stock symbol (e.g., AAPL, TSLA, RELIANCE.NS)
 - Fetches past 5 years of daily closing prices
