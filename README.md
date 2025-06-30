@@ -4,16 +4,31 @@ This is a Streamlit-based web application that predicts the **next 30 days of st
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-red?style=flat-square&logo=streamlit)
-![Status](https://img.shields.io/badge/Status-Deployed-success?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Local--Run-informational?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-
-A real-time stock price forecasting web app powered by LSTM (Long Short-Term Memory), deployed using Streamlit. Enter any stock ticker (like AAPL, TSLA, RELIANCE.NS) and get predictions for the next 30 days.
 
 ---
 
-## 🚀 Demo
+## 🚀 Run This App Locally
 
-🔗 [Live App on Streamlit](https://stock-lstm-predictor-th9h3mlyvap6v9ylx2gda3.streamlit.app/)
+### 🔧 Prerequisites
+
+- Python 3.10
+- pip installed
+
+### 🛠 Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/aashvixcodes/stock-lstm-predictor.git
+cd stock-lstm-predictor
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run the Streamlit app
+streamlit run app.py
+
 
 ## 🧠 Features
 
@@ -23,7 +38,6 @@ A real-time stock price forecasting web app powered by LSTM (Long Short-Term Mem
 - Trains a two-layer LSTM model on last 60-day windows
 - Predicts stock prices for the next 30 days
 - Plots a clear graph of predicted prices
-- Fully deployed and usable via Streamlit Cloud
 
 ---
 
@@ -71,6 +85,11 @@ Here's a breakdown of the technologies and tools used to build and deploy this p
 - **Pandas** – for working with stock price data in tabular format
 - **yfinance** – to fetch historical stock data from Yahoo Finance
 
+### 🧠 Machine Learning Model
+
+- **Model Type**: Long Short-Term Memory (LSTM)  
+- **Framework**: TensorFlow/Keras  
+
 ### 📈 Visualization
 - **Matplotlib** – to visualize the predicted stock prices
 
@@ -92,7 +111,7 @@ Here's a breakdown of the technologies and tools used to build and deploy this p
 |--------------------|----------------------------------------|
 | Data Fetching      | `yfinance`                             |
 | Data Processing    | `pandas`, `numpy`, `MinMaxScaler`      |
-| ML Model           | `sklearn  `                            |
+| ML Model           | `sklearn  ` `tensorflow.keras`         |                   
 | Visualization      | `matplotlib`, `streamlit.pyplot`       |
 | Frontend Interface | `Streamlit`                            |
 | Deployment         | `GitHub`, `Streamlit Cloud`            |
